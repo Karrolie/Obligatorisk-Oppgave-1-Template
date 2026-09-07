@@ -1,5 +1,6 @@
 package no.oslomet.cs.algdat;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class Oblig1 {
@@ -69,10 +70,53 @@ public class Oblig1 {
        // throw new UnsupportedOperationException();}
 
     // Oppgave 2
-    public static int antallUlikeSortert(int[] a) {throw new UnsupportedOperationException();}
+    public static int antallUlikeSortert(int[] a) {
+
+        int teller = 1;                     // Starter med 1, siden vi allerede har  et unikt tall
+        if (a.length == 0) {
+            return 0;
+
+        } else {
+
+            for (int i = 1; i < a.length; i++) {
+                if (!(a[i - 1] <= a[i])) {
+                    throw new IllegalStateException("Tabellen er ikke sortert stigende!");
+                }
+                if (a[i] != a[i - 1]) {
+                    teller++;
+                }
+            }
+            return teller;
+        }
+    }
 
     // Oppgave 3
-    public static int antallUlikeUsortert(int[] a) {throw new UnsupportedOperationException();}
+    //Lag metoden public static int antallUlikeUsortert(int[] a). Tabellen
+    //a kan nå være en hvilken som helst heltallstabell, den trenger ikke være sortert, og
+    //kan ha flere like verdier.
+    //Metoden skal returnere hvor mange forskjellige verdier som er i a, og skal ikke
+    //endre på tabellens innhold.
+    //Metoden skal ikke bruke noen hjelpetabeller. Alt arbeid skal kun foregå innenfor
+    //tabellen a. Du kan derfor eksempelvis ikke lage en sortert kopi av a, eller lage en
+    //tabell over tidligere registrerte verdier. Du kan selvfølgelig lage hjelpevariabler
+    public static int antallUlikeUsortert(int[] a) {
+        int teller = 0;
+
+        for (int i = 0; i < a.length; i++) {
+            boolean finnesFor = false;           //boolean variabel som holder styr på om et tall finnes fra før eller ikke, satt til false
+
+            for (int j = 0; j < i; j++) {
+                if(a[i] == a[j]){
+                    finnesFor = true;            // hvis to tall er like så finnes tallet fra før
+                    break;
+                }
+            }
+        if(!finnesFor){
+            teller++;
+        }
+        }
+    return teller;
+    }
 
     // Oppgave 4
     public static void sorter(int[] a, int fra, int til) {throw new UnsupportedOperationException();}

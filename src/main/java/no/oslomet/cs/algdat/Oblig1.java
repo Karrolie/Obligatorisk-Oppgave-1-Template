@@ -119,7 +119,85 @@ public class Oblig1 {
     }
 
     // Oppgave 4
-    public static void sorter(int[] a, int fra, int til) {throw new UnsupportedOperationException();}
+    //Lag metoden public static void sorter(int[] a, int fra, int til),
+    //som sorterer de elementene i en tabell som ligger på posisjoner mellom
+    //fra og til, inklusivt fra men eksklusivt til. Det vil si at intervallet [fra, til⟩ er
+    //intervallet som skal sorteres. Her er et eksempel:
+    //int[] a = {6, 10, 9, 4, 1, 3, 8, 5, 2, 7};
+    //sorter(a, 3, 8);
+    // nå skal vi ha a = {6, 10, 9, 1, 3, 4, 5, 8, 2, 7}
+    //Metoden skal ikke bruke hjelpetabeller og må være relativt effektiv. En av testene
+    //vil måle effektivitet på store tabeller.
+    //Metoden skal kaste en IndexOutOfBoundsException dersom fra er negativ
+    //eller dersom til er større enn tabellens lengde. Den skal ikke kaste feilmelding
+    //dersom fra er mindre enn til, men skal da ikke gjøre noe.
+
+    //Jeg vet nå at det ikke er boblesortering, insettningssortering da de i verste fall kan ha en tidkompleksitet på O(n^2)
+    // Jeg forsøker å lage en quicksort
+
+
+    public static void sorter(int[] a, int fra, int til) {
+        if (fra < 0 || til > a.length) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (fra >= til) {
+            return;
+        }
+
+        kvikksortering0(a, fra, til - 1);
+
+    }
+
+
+    // Hjelpemetoden for kviksøk
+    private static void kvikksortering0(int[] a, int v, int h) {
+        if (v >= h) {
+            return;
+        }
+
+        int k = sParter0(a, v, h, (v + h) / 2);
+
+        kvikksortering0(a, v, k - 1);
+        kvikksortering0(a, k + 1, h);
+    }
+
+
+    private static int sParter0(int[] a, int v, int h, int indeks) {
+        bytt(a, indeks, h);
+
+        int pos = parter0(a, v, h - 1, a[h]);
+
+        bytt(a, pos, h);
+
+        return pos;
+    }
+
+
+
+    private static int parter0(int[] a, int v, int h, int skilleverdi) {
+        while (true)       {                      // Løkken fortsetter helt til vi selv stopper med return
+                                                        // Vi har to "pekere", v og h som blir [fra, til⟩ i vår oppgave
+
+            while (v <= h && a[v] <= skilleverdi)       //Løkken kjører så lenge v ikke har gått forbi h(h er stoppeverdi for v), og
+                                                        //verdien på plass v/a[v] er mindre enn skilleverdien, flytt v ett hakk mot høyre.
+                v++;
+            while (v <= h && a[h] >= skilleverdi)       // Løkken kjører også så lenge v<=h, v er stoppeverdi for h (så vice versa)
+                h--;                                    // og så lenge a[h]/verdien på plass h er større enn eller lik skillevrdien/pivoten
+
+            if (v < h)
+                bytt(a,v++,h--);                 // bytter om a[v] og a[h]
+            else  return v;         //Når vi har gjort ferdig partisjoneringen, avsluttes metoden
+        }
+    }
+
+
+    public static void bytt(int[] a, int i, int j) {
+        int tmp = a[i];
+        a[i] = a[j];
+        a[j] = tmp;
+    }
+
 
     // Oppgave 5
     public static void delsortering(int[] a) {throw new UnsupportedOperationException();}

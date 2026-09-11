@@ -263,7 +263,24 @@ public class Oblig1 {
     // a er nå {'J', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'}
     //En rotasjon i en tom tabell eller tabell med nøyaktig ett element skal ikke gi
     //feilmelding, men rotasjonen vil da ikke gjøre noe.
-    public static void rotasjon(char[] a) {throw new UnsupportedOperationException();}
+
+    // Vi lagrer siste verdi i en temp før vi skyver tallene et steg mot høyre,
+    // deretter forksyver vi selve tallene mens løkka går baklengs
+    // til slutt legger vi verdien vi lagret på første plassen.
+    public static void rotasjon(char[] a) {
+
+        if (a.length <= 1) {
+            return;
+        }
+
+        char temp = a[a.length - 1];
+
+        for (int i = a.length - 1; i > 0; i--) {
+            a[i] = a[i - 1];
+        }
+
+        a[0] = temp;
+    }
 
     // Oppgave 7
     public static void rotasjon(char[] a, int k) {throw new UnsupportedOperationException();}

@@ -150,7 +150,7 @@ public class Oblig1 {
     }
 
 
-    // Hjelpemetoden for kviksøk
+    // Hjelpemetoden for kvikksøk
     private static void kvikksortering0(int[] a, int v, int h) {
         if (v >= h) {
             return;
@@ -176,7 +176,7 @@ public class Oblig1 {
 
 
     private static int parter0(int[] a, int v, int h, int skilleverdi) {
-        while (true)       {                      // Løkken fortsetter helt til vi selv stopper med return
+        while (true)       {                            // Løkken fortsetter helt til vi selv stopper med return
                                                         // Vi har to "pekere", v og h som blir [fra, til⟩ i vår oppgave
 
             while (v <= h && a[v] <= skilleverdi)       //Løkken kjører så lenge v ikke har gått forbi h(h er stoppeverdi for v), og
@@ -186,8 +186,8 @@ public class Oblig1 {
                 h--;                                    // og så lenge a[h]/verdien på plass h er større enn eller lik skillevrdien/pivoten
 
             if (v < h)
-                bytt(a,v++,h--);                 // bytter om a[v] og a[h]
-            else  return v;         //Når vi har gjort ferdig partisjoneringen, avsluttes metoden
+                bytt(a,v++,h--);                        // bytter om a[v] og a[h]
+            else  return v;                             //Når vi har gjort ferdig partisjoneringen, avsluttes metoden
         }
     }
 
@@ -199,10 +199,70 @@ public class Oblig1 {
     }
 
 
+    //Bruk metoden sorter til å lage metoden public static void delsortering(int[] a).
+    //Den skal dele tabellen a i to sorterte deler. Venstre del skal inneholde alle oddetallene
+    //sortert, og høyre del alle partallene sortert. Følgende eksempel viser bruksområdet:
+    //int[] a = {6, 10, 9, 4, 1, 3, 8, 5, 2, 7};
+    //delsortering(a);
+
+    // Nå skal vi ha a = {1, 3, 5, 7, 9, 2, 4, 6, 8, 10}.
+    //Tabellen a kan være tom, kan inneholde både negative og positive tall, kan
+    //bestå av kun oddetall, eller kun av kun partall. Ingen av disse mulighetene skal gi
+    //feilmelding
+
     // Oppgave 5
-    public static void delsortering(int[] a) {throw new UnsupportedOperationException();}
+
+
+    public static boolean erParTall(int tall) {
+        boolean erPar = false;
+        if (tall % 2 == 0) {        //   return tall % 2 == 0;
+            erPar = true;
+        }
+        return erPar;
+    }
+
+    public static boolean erOddeTall(int tall){
+        return tall % 2 != 0;
+    }
+
+    public static void delsortering(int[] a) {
+
+        int v = 0;
+        int h = a.length - 1;
+
+        while (v <= h) {
+
+            while (v <= h && erOddeTall(a[v])) {
+                v++;
+            }
+
+            while (v <= h && erParTall(a[h])) {
+                h--;
+            }
+
+            if (v < h) {
+                bytt(a, v, h);
+                v++;
+                h--;
+            }
+        }
+
+        sorter(a, 0, v);
+        sorter(a, v, a.length);
+    }
+
 
     // Oppgave 6
+    //Lag metoden public static void rotasjon(char[] a). Metoden skal «rote-
+    //re» elementene i en tabell. En rotasjon gjøres ved at det siste elementet settes
+    //først, og alle andre element forskyves ett steg mot høyre. Følgende eksempel viser
+    //et bruksområde:
+    //char[] a = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+    //rotasjon(a);
+
+    // a er nå {'J', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'}
+    //En rotasjon i en tom tabell eller tabell med nøyaktig ett element skal ikke gi
+    //feilmelding, men rotasjonen vil da ikke gjøre noe.
     public static void rotasjon(char[] a) {throw new UnsupportedOperationException();}
 
     // Oppgave 7
